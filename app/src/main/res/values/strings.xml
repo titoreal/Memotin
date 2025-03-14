@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hola, Memotin!</string>
+    <string name="app_name">Memotin</string>
+    <string name="last">Ultimo</string>
+    <string name="longest">Record</string>
+    <string name="start">Comenzar</string>
+    <string name="game">Juego:</string>
+    <string name="level">Nivel:</string>
+    <string name="set_game">Configuraciones</string>
+    <string name="set_level">Selecciona el nivel</string>
+    <string name="about">Acerca de</string>
+    <string name="clear_longest">Limpiar Record</string>
+    <string name="long_about">Resumen de términos: \n
+El autor de éste código en Kotlin diseñado para AndroidStudio version Meerkat 2024.3.1 es: TITO REAL(titoreal.pro) marzo/2025, puedes usar este código con fines no comerciales y realizar modificaciones,
+    pero debes atribuir la fuente y compartir el código bajo estos mismos términos.El código fuente y el binario ejecutable están licenciados bajo la
+    Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License\n
+        Pude lograr una imitación extremadamente precisa del comportamiento del juego Simon gracias
+    al meticuloso trabajo de ingeniería inversa realizado por Simon Inns, documentado en su sitio web:
+    http://www.waitingforfriday.com/index.php/Reverse_engineering_an_MB_Electronic_Simon_game
+
+    Y, por supuesto, el juego en sí, su diseño original, distribución, dinámica y nombre deben ser acreditados
+    a Milton Bradley / Hasbro, propietario del juego, y al genio de Ralph Baer, quien lo concibió
+    e implementó. Ver: http://www.dieterkoenig.at/ccc/english/se_story_simon.htm
+
+    El nombre Simon es una marca registrada de Milton Bradley Hasbro Corporation.
+
+    El juego está cubierto por la Patente de EE.UU. 4207087, emitida el 10 de junio de 1980.
+    Ver: http://v3.espacenet.com/textdoc?DB=EPODOC&amp;IDX=US4207087
+
+    Copyright William D. Cattey
+    Algunos derechos reservados.
+
+
+</string>
+    <string name="help">Ayuda</string>
+    <string name="long_help">
+Memotin tiene 4 niveles de habilidad.\n
+        Cada nivel determina la longitud de la secuencia final.\n
+
+        Nivel 1: Recuerda 8.\n
+        Nivel 2: Recuerda 14.\n
+        Nivel 3: Recuerda 20.\n
+        Nivel 4: Recuerda 31.\n
+
+        Memotin tiene tres modos de juego:\n
+
+        Juego 1:\n Un jugador: Repite la secuencia de colores que SimonClone da.
+        Repite fielmente cada secuencia hasta la final del nivel y ganarás.\n
+
+        Juego 2:\n Multijugador: Memotin elige un color para comenzar el juego.
+        Cada jugador, en su turno, repite la secuencia y elige un nuevo color para extenderla.
+        Un jugador que falle en repetir la secuencia queda eliminado y Memotin comienza de nuevo.
+        ¡El último jugador en pié gana!\n
+
+        Juego 3:\n Multijugador: Cada jugador elige un color para "poseer".
+        Repite la secuencia dada por Memotin como en el Juego 1. Cada jugador presiona su color asignado.
+        Si presionas tu color en el momento equivocado, quedas eliminado y Memotin continúa sin tu color.
+        ¡El último jugador en pié gana!
+    </string>
+
+    <string-array name="level_choices">
+        <item>Nivel 1: Recuerda 8</item>
+        <item>Nivel 2: Recuerda 14</item>
+        <item>Nivel 3: Recuerda 20</item>
+        <item>Nivel 4: Recuerda 31</item>
+    </string-array>
+
+    <string-array name="game_choices">
+        <item>Juego 1: Un jugador</item>
+        <item>Juego 2: Multijugador</item>
+        <item>Juego 3: Multijugador</item>
+    </string-array>
+
+    <string name="ok">Acepto...!</string>
+</resources>
