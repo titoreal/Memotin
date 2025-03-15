@@ -1,4 +1,7 @@
 package com.titin.memotin
-
-class Listener {
+interface Listener {
+   
+    fun buttonStateChanged(index: Int)
+   
+    fun multipleButtonStateChanged()
 }

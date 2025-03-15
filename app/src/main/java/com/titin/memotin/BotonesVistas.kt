@@ -8,29 +8,28 @@ import android.view.MotionEvent
 import android.view.View
 import kotlin.math.floor
 
-
 class BotonesVistas : View, Listener {
 
    
     private var buttonCellSize: Float = 0f
-   
+  
     private var scale: Float = 0f
 
-  
+    
     private val buttonBitmaps by lazy {
         val resources = context.resources
         mapOf(
-           
+          
             0 to Pair(
                 BitmapFactory.decodeResource(resources, R.drawable.ex_green_on),
                 BitmapFactory.decodeResource(resources, R.drawable.ex_green_off)
             ),
-          
+            
             1 to Pair(
                 BitmapFactory.decodeResource(resources, R.drawable.ex_red_on),
                 BitmapFactory.decodeResource(resources, R.drawable.ex_red_off)
             ),
-           
+          
             2 to Pair(
                 BitmapFactory.decodeResource(resources, R.drawable.ex_yellow_on),
                 BitmapFactory.decodeResource(resources, R.drawable.ex_yellow_off)
@@ -51,19 +50,19 @@ class BotonesVistas : View, Listener {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
     constructor(context: Context) : super(context)
 
-  
+   
     fun setSimonCloneModel(model: MemotinJuego) {
         
         if (::model.isInitialized) {
             this.model.removeListener(this)
         }
-        
+       
         this.model = model
-        
+       
         model.addListener(this)
     }
 
-   
+    
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
@@ -78,16 +77,16 @@ class BotonesVistas : View, Listener {
        
         drawButtons(canvas)
 
-      
+        
         canvas.restore()
     }
 
-    
+   
     private fun drawButtons(canvas: Canvas) {
-       
+        
         buttonCellSize = 1.0f / Constantes.BUTTON_GRID_SIZE
 
-       
+        
         for (row in 0 until Constantes.BUTTON_GRID_SIZE) {
             for (col in 0 until Constantes.BUTTON_GRID_SIZE) {
                 drawButton(canvas, row, col)
@@ -95,9 +94,9 @@ class BotonesVistas : View, Listener {
         }
     }
 
-  
+    
     private fun drawButton(canvas: Canvas, row: Int, col: Int) {
-        
+       
         val buttonCellTop = row * buttonCellSize
         val buttonCellLeft = col * buttonCellSize
 
@@ -105,33 +104,33 @@ class BotonesVistas : View, Listener {
         val buttonTop = buttonCellTop + Constantes.BUTTON_PADDING
         val buttonLeft = buttonCellLeft + Constantes.BUTTON_PADDING
 
-        
+       
         val buttonSize = (buttonCellSize - Constantes.BUTTON_PADDING * 2)
 
-        
+      
         val buttonIndex = getButtonIndex(row, col)
-        
+       
         val pressed = model.isButtonPressed(buttonIndex)
 
-        
+      
         val bitmap = if (pressed) {
-            buttonBitmaps[buttonIndex]?.first  
+            buttonBitmaps[buttonIndex]?.first  // Imagen de botón encendido
         } else {
-            buttonBitmaps[buttonIndex]?.second 
-        } ?: return 
+            buttonBitmaps[buttonIndex]?.second // Imagen de botón apagado
+        } ?: return // Si no se encuentra la imagen, sale de la función
 
        
         val pixelSize = canvas.clipBounds.width().toFloat()
         val bitmapScaleX = (pixelSize / bitmap.width) * buttonSize
         val bitmapScaleY = (pixelSize / bitmap.height) * buttonSize
 
-       
+        
         canvas.save()
        
         canvas.scale(bitmapScaleX, bitmapScaleY)
         
         canvas.drawBitmap(bitmap, buttonLeft / bitmapScaleX, buttonTop / bitmapScaleY, null)
-      
+        
         canvas.restore()
     }
 
@@ -140,23 +139,24 @@ class BotonesVistas : View, Listener {
         return row * Constantes.BUTTON_GRID_SIZE + col
     }
 
+    
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-       
+      
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
 
-       
+        
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
-      
+       
         val chosenWidth = chooseDimension(widthMode, widthSize)
         val chosenHeight = chooseDimension(heightMode, heightSize)
 
       
         val chosenDimension = minOf(chosenWidth, chosenHeight)
 
-       
+        
         setMeasuredDimension(chosenDimension, chosenDimension)
     }
 
@@ -170,23 +170,23 @@ class BotonesVistas : View, Listener {
         }
     }
 
-   
+  
     private fun getPreferredSize(): Int {
-        return 300 
+        return 300 // 300 píxeles como tamaño predeterminado
     }
 
-  
+    
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
-           
+         
             MotionEvent.ACTION_DOWN -> {
-               
+                // Obtiene el botón en las coordenadas tocadas y lo presiona en el modelo
                 getButtonByCoords(event.x, event.y)?.let { model.pressButton(it) }
                 return true
             }
-           
+          
             MotionEvent.ACTION_UP -> {
-                
+               
                 getButtonByCoords(event.x, event.y)?.let { model.releaseButton(it) }
                
                 model.releaseAllButtons()
@@ -198,9 +198,9 @@ class BotonesVistas : View, Listener {
                 getButtonByCoords(event.getX(1), event.getY(1))?.let { model.pressButton(it) }
                 return true
             }
-            
+           
             MotionEvent.ACTION_POINTER_2_UP -> {
-                
+                // Obtiene el botón en las coordenadas del segundo dedo y lo libera
                 getButtonByCoords(event.getX(1), event.getY(1))?.let { model.releaseButton(it) }
                 return true
             }
@@ -208,7 +208,7 @@ class BotonesVistas : View, Listener {
         return false 
     }
 
-    
+  
     private fun getButtonByCoords(x: Float, y: Float): Int? {
        
         val scaledX = x / scale
@@ -224,18 +224,19 @@ class BotonesVistas : View, Listener {
             return null // Coordenadas fuera de los límites
         }
 
-       
+        
         return getButtonIndex(buttonCellY, buttonCellX)
     }
 
-    
+   
     override fun buttonStateChanged(index: Int) {
-       
+        // Solicita redibujar la vista para reflejar el cambio
+        invalidate()
     }
 
    
     override fun multipleButtonStateChanged() {
-       
+        // Solicita redibujar la vista para reflejar los cambios
         invalidate()
     }
 }
